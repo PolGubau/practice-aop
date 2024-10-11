@@ -12,4 +12,9 @@ public class GreetingServiceImpl implements GreetingService {
         return greeting;
     }
 
+    @Override
+    public String greetError(String person, String phrase) {
+        throw new RuntimeException("Error in greeting");
+    }
+
 }

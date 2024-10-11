@@ -15,14 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Order(1)
+@Order(2)
 @Aspect
 @Component
-public class GreetingAspect {
+public class GreetingAspect2 {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Before("greetingLogger2Pointcut()")
+    @Before("GreetingServicePointcut.greetingLoggerPointcut()")
     public void beforeGreeting(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
@@ -30,14 +30,14 @@ public class GreetingAspect {
         StringBuilder sb = new StringBuilder()
                 .append("Before greeting ")
                 .append(method)
-                .append(" with arguments ")
+                .append(" with params ")
                 .append(args)
                 .append("-------------------");
 
         logger.info(sb.toString());
     }
 
-    @After("greetingLogger2Pointcut()")
+    @After("GreetingServicePointcut.greetingLoggerPointcut()")
     public void afterGreeting(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
@@ -52,13 +52,13 @@ public class GreetingAspect {
         logger.info(sb.toString());
     }
 
-    @AfterReturning("greetingLogger2Pointcut()")
+    @AfterReturning("GreetingServicePointcut.greetingLoggerPointcut()")
     public void afterReturnGreeting(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
 
         StringBuilder sb = new StringBuilder()
-                .append("NO ERROR in ")
+                .append("2 NO ERROR in ")
                 .append(method)
                 .append(" with arguments ")
                 .append(args)
@@ -67,7 +67,7 @@ public class GreetingAspect {
         logger.info(sb.toString());
     }
 
-    @AfterThrowing("greetingLogger2Pointcut()")
+    @AfterThrowing("GreetingServicePointcut.greetingLoggerPointcut()")
     public void afterThrowingGreeting(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
@@ -82,7 +82,7 @@ public class GreetingAspect {
         logger.info(sb.toString());
     }
 
-    @Around("greetingLogger2Pointcut()")
+    @Around("GreetingServicePointcut.greetingLoggerPointcut()")
     public Object loggerAround(ProceedingJoinPoint proceedingJoinPoint) {
         String method = proceedingJoinPoint.getSignature().getName();
 
@@ -108,5 +108,4 @@ public class GreetingAspect {
         return result;
 
     }
-
 }
